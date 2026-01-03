@@ -9,6 +9,40 @@ This is a production-ready Flutter starter template designed for rapid applicati
 - Each feature contains its own presentation, domain, and data layers
 - Clear separation of concerns throughout the application
 
+## Code Implementation Guidelines
+
+### File Length & Complexity
+**CRITICAL: Keep implementations concise and maintainable**
+
+- **Maximum file length**: 400 lines (soft limit)
+- **Recommended file length**: 200-300 lines
+- **When a file exceeds 400 lines**: Split into logical sub-modules
+
+**Exceptions (justified cases only)**:
+- Theme configuration files (app_theme.dart may reach ~500 lines for complete theme)
+- Generated files (.g.dart, .freezed.dart)
+- Comprehensive test files with multiple test cases
+
+**Strategies for keeping files concise**:
+1. **Extract methods**: Break large functions into smaller, focused methods
+2. **Separate concerns**: Split large classes into multiple smaller classes
+3. **Use composition**: Favor composition over inheritance
+4. **Create sub-modules**: Group related functionality in separate files
+5. **Leverage extensions**: Move utility methods to Dart extensions
+6. **Widget extraction**: Extract complex widgets to separate files
+
+**Example**: Instead of one 800-line screen, create:
+- `screen.dart` (main screen, ~150 lines)
+- `screen_widgets.dart` (reusable widgets, ~150 lines)
+- `screen_state.dart` (state management, ~100 lines)
+
+### Documentation Standards
+- Every public class/method requires doc comments
+- Use `///` for documentation comments
+- Include usage examples for complex APIs
+- Document WHY, not just WHAT
+- Keep comments concise and up-to-date
+
 ## Project Structure
 
 ```
@@ -52,16 +86,19 @@ test/
 ## Core Principles
 
 ### 1. State Management
-- **Use Riverpod 2.x** for state management throughout the app
+- **Use Riverpod 3.x** for state management throughout the app
 - Prefer code generation with `@riverpod` annotations
 - Keep state immutable where possible
 - Separate UI state from business logic
+- Use NotifierProvider pattern for mutable state
+- Generated provider names: check `.g.dart` files for exact names
 
 ### 2. Routing & Navigation
-- **Use go_router** for declarative routing
+- **Use go_router 17.x** for declarative routing
 - Define all routes in `config/routes/app_router.dart`
 - Implement route guards for protected routes
 - Support deep linking from day one
+- Use type-safe route parameters
 
 ### 3. API Communication
 - **Use Dio** for HTTP requests
