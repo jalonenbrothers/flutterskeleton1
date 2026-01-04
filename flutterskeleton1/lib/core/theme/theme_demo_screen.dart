@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterskeleton1/config/di/service_locator.dart';
 import 'package:flutterskeleton1/core/constants/app_colors.dart';
 import 'package:flutterskeleton1/core/constants/app_dimensions.dart';
 import 'package:flutterskeleton1/core/constants/app_strings.dart';
@@ -9,6 +10,7 @@ import 'package:flutterskeleton1/core/theme/theme_provider.dart';
 /// 
 /// Displays all colors, text styles, and components
 /// Allows testing theme toggle functionality
+/// Demonstrates dependency injection usage with logger
 class ThemeDemoScreen extends ConsumerWidget {
   const ThemeDemoScreen({super.key});
 
@@ -33,12 +35,15 @@ class ThemeDemoScreen extends ConsumerWidget {
                       : Icons.brightness_auto,
             ),
             onPressed: () {
-              // Cycle through themes
+              // Cycle through themes with logging
               if (themeMode == ThemeModeValue.light) {
+                logger.info('Switching theme to Dark mode');
                 themeNotifier.setDarkMode();
               } else if (themeMode == ThemeModeValue.dark) {
+                logger.info('Switching theme to System mode');
                 themeNotifier.setSystemMode();
               } else {
+                logger.info('Switching theme to Light mode');
                 themeNotifier.setLightMode();
               }
             },
@@ -49,6 +54,50 @@ class ThemeDemoScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(AppDimensions.spacing),
         children: [
+          // Dependency Injection Status Card
+          Card(
+            color: colorScheme.primaryContainer,
+            child: Padding(
+              padding: const EdgeInsets.all(AppDimensions.spacing),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: colorScheme.onPrimaryContainer,
+                      ),
+                      const SizedBox(width: AppDimensions.spacingSm),
+                      Text(
+                        'Dependency Injection Active',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          color: colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: AppDimensions.spacingSm),
+                  Text(
+                    'Logger service retrieved via GetIt',
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onPrimaryContainer,
+                    ),
+                  ),
+                  const SizedBox(height: AppDimensions.spacingXs),
+                  Text(
+                    'Check console for theme change logs',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onPrimaryContainer.withOpacity(0.7),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: AppDimensions.spacing),
+          
           // Current Theme Display
           Card(
             child: Padding(
@@ -75,17 +124,26 @@ class ThemeDemoScreen extends ConsumerWidget {
                       FilterChip(
                         label: const Text('Light'),
                         selected: themeMode == ThemeModeValue.light,
-                        onSelected: (_) => themeNotifier.setLightMode(),
+                        onSelected: (_) {
+                          logger.info('Light theme selected via chip');
+                          themeNotifier.setLightMode();
+                        },
                       ),
                       FilterChip(
                         label: const Text('Dark'),
                         selected: themeMode == ThemeModeValue.dark,
-                        onSelected: (_) => themeNotifier.setDarkMode(),
+                        onSelected: (_) {
+                          logger.info('Dark theme selected via chip');
+                          themeNotifier.setDarkMode();
+                        },
                       ),
                       FilterChip(
                         label: const Text('System'),
                         selected: themeMode == ThemeModeValue.system,
-                        onSelected: (_) => themeNotifier.setSystemMode(),
+                        onSelected: (_) {
+                          logger.info('System theme selected via chip');
+                          themeNotifier.setSystemMode();
+                        },
                       ),
                     ],
                   ),
