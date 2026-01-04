@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/utils/logger.dart';
+import '../routes/app_router.dart';
 
 /// Global service locator instance
 ///
@@ -9,7 +11,7 @@ import '../../core/utils/logger.dart';
 /// - [registerLazySingleton]: Creates singleton on first access
 /// - [registerSingleton]: Creates singleton immediately
 /// - [registerFactory]: Creates new instance each time
-final getIt = GetIt.instance;
+final GetIt getIt = GetIt.instance;
 
 /// Initializes and configures the dependency injection container
 ///
@@ -37,6 +39,17 @@ Future<void> setupServiceLocator() async {
   /// Lazy singleton: Created on first access
   getIt.registerLazySingleton<LoggerService>(
     () => LoggerServiceImpl(),
+  );
+
+  // ============================================================================
+  // ROUTING
+  // ============================================================================
+  
+  /// GoRouter instance
+  /// Provides declarative routing and navigation throughout the app
+  /// Singleton: Created immediately to ensure consistent routing
+  getIt.registerSingleton<GoRouter>(
+    AppRouter.router,
   );
 
   // ============================================================================

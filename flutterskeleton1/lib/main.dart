@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterskeleton1/config/di/injection_container.dart';
+import 'package:flutterskeleton1/config/di/service_locator.dart';
 import 'package:flutterskeleton1/core/theme/app_theme.dart';
-import 'package:flutterskeleton1/core/theme/theme_demo_screen.dart';
 import 'package:flutterskeleton1/core/theme/theme_provider.dart';
 
 /// Application entry point
@@ -71,13 +71,17 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
 
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Skeleton App',
       debugShowCheckedModeBanner: false,
+      
+      // Theme configuration
       theme: AppTheme.lightTheme(),
       darkTheme: AppTheme.darkTheme(),
       themeMode: themeMode.toMaterialThemeMode(),
-      home: const ThemeDemoScreen(),
+      
+      // Router configuration
+      routerConfig: router,
     );
   }
 }
