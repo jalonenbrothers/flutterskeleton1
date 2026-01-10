@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterskeleton1/core/widgets/widget_showcase_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutterskeleton1/config/routes/route_names.dart';
 import 'package:flutterskeleton1/features/splash/presentation/screens/splash_screen.dart';
@@ -89,6 +90,12 @@ class AppRouter {
           child: const ProfileScreen(),
         ),
       ),
+
+      GoRoute(
+        path: '/widgets',
+        name: 'widgets',
+        builder: (context, state) => const WidgetShowcaseScreen(),
+      ), 
 
       // Additional routes will be added in future steps:
       // - Forgot Password (Step 17)

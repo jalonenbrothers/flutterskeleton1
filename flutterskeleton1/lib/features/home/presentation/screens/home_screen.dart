@@ -67,6 +67,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              const SizedBox(height: 16),
+              FilledButton.icon(
+                onPressed: () => context.goNamed('widgets'),
+                icon: const Icon(Icons.widgets),
+                label: const Text('View Widget Showcase'),
+              ),
+
               SizedBox(height: AppDimensions.spacingLg),
 
               // Navigation section

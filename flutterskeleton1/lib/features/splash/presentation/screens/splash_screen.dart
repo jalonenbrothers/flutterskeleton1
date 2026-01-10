@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _navigateToNextScreen();
   }
-
+ 
   /// Navigate to next screen after delay
   ///
   /// Currently navigates to home after 2 seconds.
