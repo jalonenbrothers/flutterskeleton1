@@ -113,6 +113,17 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
+              
+              // Extensions & Utilities Demo (Step 6)
+              _NavigationCard(
+                icon: Icons.extension_outlined,
+                title: 'Extensions & Utils Demo',
+                subtitle: 'View extensions and utilities showcase',
+                onTap: () {
+                  logger.info('Navigating to extensions demo');
+                  context.push('/extensions-demo');
+                },
+              ),
 
               const Spacer(),
 
